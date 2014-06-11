@@ -1,0 +1,61 @@
+<go:page id="Page1" title="Page1">
+    <content>
+        <go:editform id="EditForm1" onsubmit="" onrender="" class="(None)">
+            <go:data source="(None)" dbwhere="" dbselect="*" dborderby="" reloaddata="true" loaddata="true">
+                <bindings></bindings>
+            </go:data>
+            <template>
+                <go:textbox text="name :" id="txtName" class="(None)" labelclass="(None)" inputclass="(None)"></go:textbox>
+                <!--<go:checkbox text="male :" id="ChkMale" class="(None)" labelclass="(None)"></go:checkbox>-->
+                <go:textbox text="Age :" id="txtAge" class="(None)" labelclass="(None)" inputclass="(None)"></go:textbox>
+                <go:actionbutton onclick="insertLocal(txtName.value, txtAge.value);" id="ActionButton1" text="Submit" class="(None)" buttontype="Button"></go:actionbutton>
+            </template>
+        </go:editform>
+        <go:repeater id="Repeater1" nodatamessage="The method did not return any data." class="(None)">
+            <go:data source="Dataset1\sql_server\sql_server_Table" dbwhere="" dbselect="*" dborderby="" reloaddata="true" loaddata="true">
+                <bindings></bindings>
+            </go:data>
+            <template>
+                <table style="width:100%;">
+                    <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Male</td>
+                            <td>Age</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <go:label databinding="ID"  id="Label1" text="Label1" class="(None)"></go:label>
+                            </td>
+                            <td>
+                                <go:label databinding="name"  id="Label2" text="Label2" class="(None)"></go:label>
+                            </td>
+                            <td>
+                                <go:label databinding="male"  id="Label3" text="Label3" class="(None)"></go:label>
+                            </td>
+                            <td>
+                                <go:label databinding="age"  id="Label4" text="Label4" class="(None)"></go:label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
+        </go:repeater>
+        
+        <script>
+            function insertLocal(name, age){
+                var db = new go.db('DBCgo');
+                 document.write(db);
+
+                var sqlString = "INSERT INTO Dataset1\sql_server_Table VALUES (NULL,'"+ name +"',"+ age+" )";
+                var result = db.execute(sqlString);
+                Repeater1.reload();
+            
+            }
+        </script>
+        
+        
+        
+    </content>
+</go:page>
